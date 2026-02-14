@@ -28,10 +28,14 @@ public_users.post("/register", (req, res) => {
   
 
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
-  //Write your code here
-  return res.status(200).send(JSON.stringify(books, null, 4));
+public_users.get('/promisebooks', function (req, res) {
+  new Promise((resolve, reject) => {
+    resolve(books);
+  })
+    .then(data => res.status(200).json(data))
+    .catch(err => res.status(500).json({ message: "Error fetching books" }));
 });
+
 
 // Get book details based on ISBN
 // Get book details based on ISBN
